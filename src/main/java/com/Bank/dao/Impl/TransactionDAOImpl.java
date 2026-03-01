@@ -30,9 +30,17 @@ public class TransactionDAOImpl implements TransactionDAO{
 	}
 
 	@Override
-	public Optional<Transaction> FindById(Long transaction) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+	public Optional<Transaction> FindById(Long transactionId) {
+	EntityManager em=HibernateUtil.getEntityManager();
+	try {
+		
+		return Optional.ofNullable(em.find(Transaction.class, transactionId));
+		
+	}finally {
+		em.close();
+	
+	}
+		
 	}
 
 	@Override

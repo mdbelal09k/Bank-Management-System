@@ -34,7 +34,20 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
+		EntityManager em=HibernateUtil.getEntityManager();
+		EntityTransaction et=em.getTransaction();
+		
+		try {
+		et.begin();
+		em.merge(user);
+		et.commit();
+		}catch(Exception e) {
+			if(et.isActive()) {
+				et.rollback();
+			}
+		}finally {
+			em.close();
+		}
 
 	}
 

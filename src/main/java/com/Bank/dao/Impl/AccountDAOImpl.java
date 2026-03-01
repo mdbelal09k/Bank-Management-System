@@ -33,7 +33,22 @@ public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public void update(Account account) {
-		// TODO Auto-generated method stub
+		
+	      EntityManager em = HibernateUtil.getEntityManager();
+	        EntityTransaction et = em.getTransaction();
+	        try {
+	        	et.begin();
+	        	em.merge(account);
+	        	et.commit();
+	        	
+	        }catch(Exception e) {
+	        	if(et.isActive()) {
+	        		et.rollback();
+	        		throw e;
+	        	}
+	        }finally {
+	        	em.close();
+	        }
 
 	}
 
