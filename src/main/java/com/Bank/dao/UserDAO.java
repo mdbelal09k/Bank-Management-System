@@ -17,7 +17,7 @@ public interface UserDAO {
 	 	///-> UPDATE
 	 	void update(User user);
 	 	///-> DELETE
-	 	void delete(Long usrid);
+	 	void delete(Long userId);
 	 	///-> FIND BY USER ID
 	 	Optional<User> findById(Long userId);
 	 	///-> find user by username(username for login)

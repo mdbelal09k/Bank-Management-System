@@ -26,48 +26,74 @@ public class AccountDAOImpl implements AccountDAO {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
-		}finally {
+		} finally {
 			em.close();
 		}
 	}
 
 	@Override
 	public void update(Account account) {
-		
-	      EntityManager em = HibernateUtil.getEntityManager();
-	        EntityTransaction et = em.getTransaction();
-	        try {
-	        	et.begin();
-	        	em.merge(account);
-	        	et.commit();
-	        	
-	        }catch(Exception e) {
-	        	if(et.isActive()) {
-	        		et.rollback();
-	        		throw e;
-	        	}
-	        }finally {
-	        	em.close();
-	        }
+
+		EntityManager em = HibernateUtil.getEntityManager();
+		EntityTransaction et = em.getTransaction();
+		try {
+			et.begin();
+			em.merge(account);
+			et.commit();
+
+		} catch (Exception e) {
+			if (et.isActive()) {
+				et.rollback();
+				throw e;
+			}
+		} finally {
+			em.close();
+		}
 
 	}
 
 	@Override
 	public void delete(Long accountId) {
-		// TODO Auto-generated method stub
+		EntityManager em = HibernateUtil.getEntityManager();
+		EntityTransaction et = em.getTransaction();
+		try {
+			et.begin();
+			Account account = em.find(Account.class, accountId);
+			if (account != null) {
+				em.remove(account);
+			}
+		} catch (Exception e) {
+			if (et.isActive()) {
+				et.rollback();
+			}
+		} finally {
+			em.close();
+		}
 
 	}
 
 	@Override
 	public Optional<Account> findById(Long accountId) {
-		// TODO Auto-generated method stub
+		EntityManager em = HibernateUtil.getEntityManager();
+		try {
+
+			return Optional.ofNullable(em.find(Account.class, accountId));
+		} catch (Exception e) {
+			em.close();
+		}
 		return Optional.empty();
+
 	}
 
 	@Override
 	public List<Account> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = HibernateUtil.getEntityManager();
+
+		try {
+			return em.createQuery("FORM Account", Account.class).getResultList();
+		} finally {
+			em.clear();
+		}
 	}
 
 	@Override
