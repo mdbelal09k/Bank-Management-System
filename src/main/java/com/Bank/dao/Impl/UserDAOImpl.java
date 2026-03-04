@@ -103,19 +103,31 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		EntityManager em=HibernateUtil.getEntityManager();
+		try {
+			return em.createQuery("FORM User",User.class).getResultList();
+		}
+		finally {
+			em.close();
+		}
 	}
 
 	@Override
 	public List<User> findByRoll(Role role) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em=HibernateUtil.getEntityManager();
+		try {
+			return em.createQuery("FORM User u.role= :role",User.class).setParameter("role",role).getResultList();
+			
+		}
+		finally {
+			em.close();
+		}
 	}
 
 	@Override
 	public boolean existsByUsername(String username) {
 		// TODO Auto-generated method stub
-		return false;
+		return findByUsername(username).isPresent();
 	}
 
 }

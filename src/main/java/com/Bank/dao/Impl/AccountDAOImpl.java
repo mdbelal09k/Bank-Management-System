@@ -99,19 +99,36 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public List<Account> findByUserId(Long userId) {
 		// TODO Auto-generated method stub
-		return null;
+		EntityManager em=HibernateUtil.getEntityManager();
+		try {
+			return em.createQuery("FORM Account a WHERE a.user.id= : id",Account.class).setParameter("uid",userId).getResultList();
+		}finally {
+			em.close();
+		}
 	}
 
 	@Override
 	public List<Account> findByType(AccountType type) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em=HibernateUtil.getEntityManager();
+		try {
+			
+			return em.createQuery("FROM Account a WHERE a.type =: type",Account.class).setParameter("type",type).getResultList();
+		}finally {
+			em.close();
+		}
 	}
 
 	@Override
 	public boolean existByAccountNumber(String accountNumber) {
 		// TODO Auto-generated method stub
-		return false;
+		return  findByAccountNumber(accountNumber).isPresent();
 	}
+
+	private Optional<Account> findByAccountNumber(String accountNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }
