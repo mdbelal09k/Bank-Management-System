@@ -108,4 +108,11 @@ public class Account {
 		this.balance = balance;
 	}
 
+
+
+	public Account orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -29,4 +29,5 @@ public interface AccountDAO {
 	List<Account>findByType(AccountType type);
 	///->check if account number already exists
 	boolean existByAccountNumber(String accountNumber);
+	Account findByAccountNumber(String accountNumber);
 	}
