@@ -57,6 +57,10 @@ public interface AccountService {
      * Get current balance
      */
 	BigDecimal getBalance(String accountNumber);
+
+	List<Account> getAccountsByUser(Long userId);
+
+	List<Account> getAllAccounts();
 	
 	
 	

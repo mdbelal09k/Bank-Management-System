@@ -66,6 +66,10 @@ public class Transaction implements Serializable {
 		this.transactionTime = transactionTime;
 	}
 
+	public Transaction(TransactionType withdraw, BigDecimal amount2, Account account, Object object) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getId() {
 		return id;
 	}

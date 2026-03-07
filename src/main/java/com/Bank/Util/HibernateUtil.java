@@ -12,3 +12,4 @@ public class HibernateUtil {
 		return emf.createEntityManager();
 	}
 }
+          

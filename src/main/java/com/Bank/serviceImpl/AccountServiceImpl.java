@@ -1,4 +1,4 @@
-package com.Bank.service;
+package com.Bank.serviceImpl;
 
 import com.Bank.Util.HibernateUtil;
 import com.Bank.dao.AccountDAO;
@@ -17,16 +17,22 @@ import com.Bank.service.AccountService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
 public class AccountServiceImpl implements AccountService {
 
-    private final AccountDAO accountDAO = new AccountDAOImpl();
-    private final TransactionDAO transactionDAO = new TransactionDAOImpl();
-    private final UserDAO userDAO = new UserDAOImpl();
+    private final AccountDAO accountDAO = new com.Bank.dao.Impl.AccountDAOImpl() {
+		
+		@Override
+		public Account findByAccountNumber(String accountNumber) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
+    private final TransactionDAO transactionDAO = new com.Bank.dao.Impl.TransactionDAOImpl();
+    private final UserDAO userDAO = new com.Bank.dao.Impl.UserDAOImpl();
 
     // =========================
     // Create Account
@@ -64,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.update(account);
 
         Transaction transaction =
-                new Transaction(TransactionType.DEPOSIT,
+                new Transaction(TransactionType.DEPOST,
                         amount,
                         null,
                         account);
@@ -84,7 +90,7 @@ public class AccountServiceImpl implements AccountService {
                         .orElseThrow(() -> new RuntimeException("Account not found"));
 
         if (account.getBalance().compareTo(amount) < 0) {
-            throw new  InsufficientBalanceException();
+            throw new InsufficientBalanceException();
         }
 
         account.setBalance(account.getBalance().subtract(amount));
@@ -160,10 +166,12 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
+    @Override
     public List<Account> getAccountsByUser(Long userId) {
         return accountDAO.findByUserId(userId);
     }
 
+    @Override
     public List<Account> getAllAccounts() {
         return accountDAO.findAll();
     }

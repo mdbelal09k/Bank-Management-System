@@ -11,7 +11,7 @@ import com.Bank.entity.enums.AccountType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class AccountDAOImpl implements AccountDAO {
+public abstract class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public void save(Account account) {
