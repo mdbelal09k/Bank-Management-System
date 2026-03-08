@@ -118,16 +118,9 @@ public abstract class AccountDAOImpl implements AccountDAO {
 		}
 	}
 
-	@Override
-	public boolean existByAccountNumber(String accountNumber) {
-		// TODO Auto-generated method stub
-		return  findByAccountNumber(accountNumber).isPresent();
-	}
 
-	private Optional<Account> findByAccountNumber(String accountNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 	
 

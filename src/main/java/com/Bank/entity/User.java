@@ -3,7 +3,7 @@ package com.Bank.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.management.relation.Role;
+import com.Bank.entity.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

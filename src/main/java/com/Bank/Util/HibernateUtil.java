@@ -6,10 +6,16 @@ import jakarta.persistence.Persistence;
 
 public class HibernateUtil {
 
-	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU");
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("bankPU");
 
-	public static final EntityManager getEntityManager() {
-		return emf.createEntityManager();
-	}
+    public static EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public static void close() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
+    }
 }
-          
